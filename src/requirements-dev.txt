@@ -1,15 +1,1 @@
-atomicwrites~=1.4.0
-attrs~=21.2.0
-colorama~=0.4.4
-et-xmlfile~=1.1.0
-iniconfig~=1.1.1
-numpy~=1.21.3
-packaging~=21.0
-pluggy~=1.0.0
-py~=1.10.0
-pyparsing~=2.4.7
 pytest~=6.2.5
-pytest-cov~=3.0.0
-pytest-mock~=3.6.1
-requests-mock~=1.9.3
-toml~=0.10.2

@@ -1,0 +1,14 @@
+version: "3.7"
+
+x-buildargs: &buildargs
+  GIT_COMMIT: ${GIT_COMMIT:-'git-commit'}
+  BUILD_VERSION: ${BUILD_VERSION:-'semver'}
+
+services:
+  azure-sp-metrics-exporter:
+    image: ${CR_BASE}/azure-sp-metrics-exporter:${GITVERSION_SEMVER:-latest}
+    build:
+      context: ./src
+      args:
+        <<: *buildargs
+    ports: [ "8000:8000" ]

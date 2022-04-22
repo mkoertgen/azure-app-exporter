@@ -1,0 +1,87 @@
+name: _build
+
+on: # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
+  workflow_call:
+    inputs:
+      runs-on:
+        description: The default build-agent
+        type: string
+        required: false
+        # See https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+        default: "ubuntu-20.04"
+      component:
+        description: The component to build & deploy
+        type: string
+        required: true
+        default: "azure-sp-metrics-exporter"
+      cr:
+        # https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+        description: The container registry to use (default is GitHub)
+        type: string
+        required: false
+        default: ghcr.io
+    # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows#using-outputs-from-a-reusable-workflow
+    outputs:
+      version:
+        description: The built version
+        value: ${{ jobs.version.outputs.semver }}
+    secrets:
+      crToken:
+        required: true
+
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#defaults
+defaults:
+  run:
+    shell: bash
+
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#env
+env:
+  COMPONENT: ${{ inputs.component }}
+
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobs
+jobs:
+  version:
+    runs-on: ${{ inputs.runs-on }}
+    outputs: # NOTE: We need the output in other jobs
+      semver: ${{ steps.gitversion.outputs.semVer }}
+    steps:
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: "5.x"
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # For gitversion
+      # https://github.com/GitTools/actions/blob/main/docs/examples/github/gitversion/index.md
+      - id: gitversion
+        name: Determine Version
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        with:
+          useConfigFile: true
+
+  build:
+    runs-on: ${{ inputs.runs-on }}
+    needs: version
+    env:
+      CR_BASE: "${{ inputs.cr }}/${{ github.repository }}"
+      GITVERSION_SEMVER: ${{ needs.version.outputs.semver }}
+      GIT_COMMIT: ${{ github.sha }}
+      BUILD_VERSION: ${{ needs.version.outputs.semver }}
+    steps:
+      #------
+      - uses: actions/checkout@v2
+      - name: "Login to '${{ inputs.cr }}'"
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ inputs.cr }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.crToken }}
+      - id: build
+        name: Build container image
+        run: |
+          docker-compose build ${COMPONENT}
+          docker-compose push ${COMPONENT}
+      - name: Tag & push image
+        run: |
+          docker tag ${CR_BASE}/${COMPONENT}:${BUILD_VERSION} ${CR_BASE}/${COMPONENT}:latest
+          docker push ${CR_BASE}/${COMPONENT}:latest

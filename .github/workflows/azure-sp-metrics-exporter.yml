@@ -1,0 +1,17 @@
+name: azure-sp-metrics-exporter
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+  #--- TODO: For now also enable manual runs
+  workflow_dispatch:
+
+jobs:
+  build:
+    uses: mkoertgen/azure-sp-metrics-exporter/.github/workflows/_build.yml@main
+    with:
+      component: app
+    secrets:
+      crToken: ${{ secrets.GITHUB_TOKEN }}

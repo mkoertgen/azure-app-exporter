@@ -12,6 +12,6 @@ jobs:
   build:
     uses: mkoertgen/azure-sp-metrics-exporter/.github/workflows/_build.yml@main
     with:
-      component: app
+      component: azure-sp-metrics-exporter
     secrets:
       crToken: ${{ secrets.GITHUB_TOKEN }}

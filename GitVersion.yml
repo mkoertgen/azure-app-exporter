@@ -1,0 +1,6 @@
+#mode: ContinuousDeployment
+mode: MainLine
+branches: {}
+ignore:
+  sha: []
+merge-message-formats: {}

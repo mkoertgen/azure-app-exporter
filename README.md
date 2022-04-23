@@ -69,7 +69,7 @@ $ az ad app permission grant --id ... --api 00000003-0000-0000-c000-000000000000
 
 ```shell
 # Show API Permissions
-$ az ad sp show --id %SP_ID% --query "appRoles[].{Value:value, Id:id}" --output table
+$ az ad sp show --id 00000002-0000-0000-c000-000000000000 --query "appRoles[].{Value:value, Id:id}" --output table
 ...
 Application.Read.All    3afa6a7d-9b1a-42eb-948e-1650a849e176
 

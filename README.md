@@ -55,28 +55,32 @@ Windows Azure Active Directory                                00000002-0000-0000
 
 ```shell
 # Show API Permissions
-$ az ad sp show --id 00000003-0000-0000-c000-000000000000 --query "appRoles[].{Value:value, Id:id}" --output table | grep Application
-...
-Application.Read.All    9a5d68dd-52b0-4cc2-bd40-abcf44ac3a30
+$ az ad sp show --id 00000003-0000-0000-c000-000000000000 --query "appRoles[].{Value:value, Id:id}" --output table
+Application.ReadWrite.OwnedBy  18a4783c-866b-4cc7-a460-3d5e5662c884
+Application.ReadWrite.All      1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9
+Application.Read.All           9a5d68dd-52b0-4cc2-bd40-abcf44ac3a30
+Directory.Read.All             7ab1d382-f21e-4acd-a863-ba3e13f7da61
 
 # Grant API Permissions
-$ az ad app permission add --id %AZURE_CLIENT_ID% --api 00000003-0000-0000-c000-000000000000 --api-permissions 9a5d68dd-52b0-4cc2-bd40-abcf44ac3a30=Role
-$ az ad app permission grant --id ... --api 00000003-0000-0000-c000-000000000000
+$ az ad app permission add --id $AZURE_CLIENT_ID$ --api 00000003-0000-0000-c000-000000000000 --api-permissions 9a5d68dd-52b0-4cc2-bd40-abcf44ac3a30=Role
+# Same for
+# 18a4783c-866b-4cc7-a460-3d5e5662c884
+# 1bfefb4e-e0b5-418b-a88f-73c46d2cc8e9
+# 7ab1d382-f21e-4acd-a863-ba3e13f7da61
+# 9a5d68dd-52b0-4cc2-bd40-abcf44ac3a30
+#
 
 ```
 
 #### Azure Active Directory (Legacy)
 
 ```shell
-# Show API Permissions
+# show available API permissions
 $ az ad sp show --id 00000002-0000-0000-c000-000000000000 --query "appRoles[].{Value:value, Id:id}" --output table
-...
-Application.Read.All    3afa6a7d-9b1a-42eb-948e-1650a849e176
-
-# Grant API Permissions
-$ az ad app permission add --id $AZURE_CLIENT_ID --api 00000002-0000-0000-c000-000000000000 --api-permissions 3afa6a7d-9b1a-42eb-948e-1650a849e176=Role
-The underlying Active Directory Graph API will be replaced by Microsoft Graph API in Azure CLI 2.37.0. Please carefully review all breaking changes introduced during this migration: https://docs.microsoft.com/cli/azure/microsoft-graph-migration
-Invoking "az ad app permission grant --id ... --api 00000002-0000-0000-c000-000000000000" is needed to make the change effective
+Application.Read.All           3afa6a7d-9b1a-42eb-948e-1650a849e176
+Application.ReadWrite.All      1cda74f2-2616-4834-b122-5cb1b07f8a59
+Application.ReadWrite.OwnedBy  824c81eb-e3f8-4ee6-8f6d-de7f50d565b7
+Directory.Read.All             5778995a-e1bf-45b8-affa-663a9f3f4d04
 
 $ az ad app permission grant --id ... --api 00000002-0000-0000-c000-000000000000
 {
@@ -85,11 +89,31 @@ $ az ad app permission grant --id ... --api 00000002-0000-0000-c000-000000000000
 }
 ```
 
-### Final Test
+### Finalize
 
 ```shell
+# grant admin-consent
+$ az ad app permission admin-consent --id $AZURE_CLIENT_ID
+
+# list application permissions
+$ az ad app permission list --id $AZURE_CLIENT_ID
+...
+# login as app
 $ az login --service-principal -u $AZURE_CLIENT_ID -p $AZURE_CLIENT_SECRET --tenant $AZURE_TENANT_ID
-$ az ad app list
+# and list applications including expiration dates
+$ az ad app list --query "[].{appId:appId,credentials:passwordCredentials[].{name:customKeyIdentifier,created:startDate,expires:endDate}}"
+[
+  {
+    "appId": "***",
+    "credentials": [
+      {
+        "created": "2022-04-23T13:39:37.210801+00:00",
+        "expires": "2023-04-23T13:39:37.210801+00:00",
+        "name": "rbac"
+      }
+    ]
+  }
+]
 ```
 
 ## Development

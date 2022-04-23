@@ -1,1 +1,1 @@
-from .sp import ServicePrincipal
+from .sp import AppRegistration

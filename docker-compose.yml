@@ -5,8 +5,8 @@ x-buildargs: &buildargs
   BUILD_VERSION: ${BUILD_VERSION:-'semver'}
 
 services:
-  azure-sp-exporter:
-    image: ${CR_BASE}/azure-sp-exporter:${GITVERSION_SEMVER:-latest}
+  azure-app-exporter:
+    image: ${CR_BASE}/azure-app-exporter:${GITVERSION_SEMVER:-latest}
     build:
       context: ./src
       args:

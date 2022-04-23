@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
 
-class ServicePrincipal(BaseModel):
+class AppRegistration(BaseModel):
     id: str

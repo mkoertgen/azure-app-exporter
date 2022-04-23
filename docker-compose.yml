@@ -12,3 +12,7 @@ services:
       args:
         <<: *buildargs
     ports: [ "8000:8000" ]
+    environment:
+      AZURE_CLIENT_ID: ${AZURE_CLIENT_ID}
+      AZURE_CLIENT_SECRET: ${AZURE_CLIENT_SECRET}
+      AZURE_TENANT_ID: ${AZURE_TENANT_ID}

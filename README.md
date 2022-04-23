@@ -9,21 +9,28 @@ Exposing Prometheus Metrics for Azure Service Principals
 ## Development
 
 ```shell
-# Install Dependencies
+# Install dependencies
 pip install --user -r requirements.txt -r requirements-dev.txt
 
-# Run
-$ uvicorn main:app [--reload]
-INFO:     Started server process [13728]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+# Update dependencies
+$ python -m pur -r requirements.txt -r requirements-dev.txt
+All requirements up-to-date.
 
-# Tests
-$ pytest
+# Run tests
+$ python -m pytest --cov
 tests\api\test_sp.py .                                           [100%]
 
 ============================= 1 passed in 0.05s =============================
+
+# Run - development mode
+$ python -m uvicorn main:app --reload
+INFO:     Will watch for changes in these directories: ['...azure-sp-exporter/src']
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [3272] using statreload
+WARNING:  The --reload flag should not be used in production.
+INFO:     Started server process [20152]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
 ```
 
 Next hit

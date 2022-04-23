@@ -1,3 +1,5 @@
+[![azure-app-exporter](https://github.com/mkoertgen/azure-app-exporter/actions/workflows/azure-app-exporter.yml/badge.svg)](https://github.com/mkoertgen/azure-app-exporter/actions/workflows/azure-app-exporter.yml)
+
 # azure-app-exporter
 
 Exposing Prometheus Metrics for Azure Service Principals
@@ -10,6 +12,8 @@ There are existing projects that map Azure metrics to Prometheus metrics, which 
 However, since Azure does not provide metrics for App Registrations these options cannot work either.
 Existing cloud native approaches out of initiatives like CrossPlane or Azure Service Operator also lack App Registrations.
 Other IaC providers (e.g. Terraform) are not well suited for this task.
+
+Finally, the [Microsoft Graph API Migration](https://docs.microsoft.com/en-us/graph/migrate-azure-ad-graph-faq) is an ongoing operation.
 
 ## How to use
 

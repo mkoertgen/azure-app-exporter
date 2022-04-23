@@ -1,4 +1,4 @@
-# azure-sp-metrics-exporter
+# azure-sp-exporter
 
 Exposing Prometheus Metrics for Azure Service Principals
 

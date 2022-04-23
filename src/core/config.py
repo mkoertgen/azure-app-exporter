@@ -5,7 +5,7 @@ from pydantic import BaseSettings
 
 class Settings(BaseSettings):
     API_BASE: str = "/api"
-    PROJECT_NAME: str = 'azure-sp-metrics-exporter'
+    PROJECT_NAME: str = 'azure-sp-exporter'
 
     @staticmethod
     def get_project_name(v: Optional[str], values: Dict[str, Any]) -> str:

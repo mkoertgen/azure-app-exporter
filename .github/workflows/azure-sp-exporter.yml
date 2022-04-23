@@ -1,4 +1,4 @@
-name: azure-sp-metrics-exporter
+name: azure-sp-exporter
 on:
   push:
     branches:
@@ -10,8 +10,8 @@ on:
 
 jobs:
   build:
-    uses: mkoertgen/azure-sp-metrics-exporter/.github/workflows/_build.yml@main
+    uses: mkoertgen/azure-sp-exporter/.github/workflows/_build.yml@main
     with:
-      component: azure-sp-metrics-exporter
+      component: azure-sp-exporter
     secrets:
       crToken: ${{ secrets.GITHUB_TOKEN }}

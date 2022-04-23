@@ -10,6 +10,7 @@ keywords:
 home: https://github.com/mkoertgen/azure-app-exporter
 sources:
   - https://github.com/mkoertgen/azure-app-exporter
+icon: https://raw.githubusercontent.com/mkoertgen/azure-app-exporter/main/logo.png
 maintainers:
   - name: Marcel Körtgen
     email: marcel.koertgen@gmail.com

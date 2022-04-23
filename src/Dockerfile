@@ -7,7 +7,7 @@ COPY . .
 
 FROM base as test
 RUN pip install --no-cache-dir -r requirements-dev.txt
-RUN pytest --cov
+RUN python -m pytest --cov
 
 
 FROM base as final

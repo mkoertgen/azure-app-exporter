@@ -1,0 +1,32 @@
+version: "3.7"
+
+volumes:
+  prometheus-data:
+  grafana-data:
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.35.0
+    ports: ["9090:9090"]
+    volumes:
+      - ./prometheus/etc/:/etc/prometheus/
+      - prometheus-data:/prometheus/
+
+  alertmanager:
+    image: prom/alertmanager:v0.24.0
+    ports: ["9093:9093"]
+
+  grafana:
+    image: grafana/grafana:8.5.0
+    ports: ["3000:3000"]
+    volumes:
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards/
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources/
+      - ./grafana/dashboards/:/var/lib/grafana/dashboards/      
+      - grafana-data:/var/lib/grafana/
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_SMTP_ENABLED: "true"
+      GF_SMTP_HOST: smtp.gmail.com:587
+      GF_SMTP_USER: securesally@gmail.com
+      ALERT_EMAIL_RECIPIENTS: securesally@gmail.com

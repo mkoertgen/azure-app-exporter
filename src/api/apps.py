@@ -4,7 +4,7 @@ from fastapi import Depends
 from fastapi_utils.cbv import cbv
 from fastapi_utils.inferring_router import InferringRouter
 from models import AppRegistration
-from services.app_service import MockAppService
+from services.mock_app_service import MockAppService
 
 from api import deps
 

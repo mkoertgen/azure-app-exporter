@@ -2,7 +2,7 @@ from fastapi.testclient import TestClient
 
 from core.config import settings
 from models import AppRegistration
-from services.app_service import MockAppService
+from services.mock_app_service import MockAppService
 
 
 def test_apps(client: TestClient):

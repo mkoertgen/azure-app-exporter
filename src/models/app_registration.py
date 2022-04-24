@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 
 class Credential(BaseModel):
-    name: str
+    name: Optional[str]
     created: Optional[datetime]
     expires: Optional[datetime]
 

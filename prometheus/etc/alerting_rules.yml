@@ -1,0 +1,13 @@
+groups:
+  - name: azure-app-exporter
+    rules:
+      - alert: AzureAppCredentialsExpiring
+        expr: sum by (app_id) (azure_app_earliest_expiry{} - time() < 60*24*60*60)
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: Azure App Credentials expiring ({{ $labels.app_id }})
+          description: "Credentials expiring in 2 months\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          dashboard: http://localhost:3000/d/azure-app-exporter
+

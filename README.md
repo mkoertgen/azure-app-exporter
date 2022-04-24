@@ -5,13 +5,15 @@
 
 Exposing Prometheus Metrics for Azure App Registration useful for alerting on expiring Service Principal Credentials.
 
+![Example Grafana Dashboard](_docs/img/grafana-dashboard.jpg)
+
 See [Documentation](_docs/index.md) for more information.
 
 Contribute on the [Project page](https://github.com/users/mkoertgen/projects/1/)
 
 ## Quick Start
 
-Install using Docker or Helm (see `docker-compose.yml` or `./charts`).
+Install using [Helm](https://artifacthub.io/packages/helm/azure-app-exporter/azure-app-exporter) or [Docker](https://github.com/mkoertgen/azure-app-exporter/pkgs/container/azure-app-exporter%2Fazure-app-exporter) and create a [Service Principal to use with Azure](https://docs.microsoft.com/en-us/azure/active-directory/develop/app-objects-and-service-principals).
 
 The service authenticates against Azure using [Environmental Credentials](https://docs.microsoft.com/en-us/python/api/azure-identity/azure.identity.environmentcredential?view=azure-python), i.e.
 

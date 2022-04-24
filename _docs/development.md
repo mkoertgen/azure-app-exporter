@@ -17,7 +17,7 @@ All requirements up-to-date.
 
 # Run tests
 $ python -m pytest --cov
-tests\api\test_sp.py .                                           [100%]
+test/api/test_apps.py::test_apps PASSED
 
 ============================= 1 passed in 0.05s =============================
 

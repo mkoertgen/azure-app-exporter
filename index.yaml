@@ -1,0 +1,25 @@
+apiVersion: v1
+entries:
+  azure-app-exporter:
+  - apiVersion: v2
+    appVersion: 0.1.19
+    created: "2022-04-24T17:05:50.824164908Z"
+    description: Exposing Prometheus Metrics for Azure Service Principals
+    digest: e14af18c2867acbbc45451d4db362a8a8d61a0cd611d9327aa2321cae95bcfa1
+    home: https://github.com/mkoertgen/azure-app-exporter
+    icon: https://raw.githubusercontent.com/mkoertgen/azure-app-exporter/main/logo.png
+    keywords:
+    - azure
+    - prometheus
+    maintainers:
+    - email: marcel.koertgen@gmail.com
+      name: Marcel Körtgen
+      url: https://github.com/mkoertgen
+    name: azure-app-exporter
+    sources:
+    - https://github.com/mkoertgen/azure-app-exporter
+    type: application
+    urls:
+    - https://github.com/mkoertgen/azure-app-exporter/releases/download/azure-app-exporter-0.1.0/azure-app-exporter-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-04-24T17:05:50.824170408Z"

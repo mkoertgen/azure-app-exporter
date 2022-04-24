@@ -2,7 +2,7 @@
 
 # azure-app-exporter
 
-Exposing Prometheus Metrics for Azure App Registration sueful for alerting on expiring Service Principal Credentials.
+Exposing Prometheus Metrics for Azure App Registration useful for alerting on expiring Service Principal Credentials.
 
 See [Documentation](_docs/index.md) for more information.
 

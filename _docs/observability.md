@@ -14,7 +14,7 @@ Example Rule firing in Prometheus
 
 ![Prometheus](./img/prometheus-alert.jpg)
 
-## Alertmanage
+## Alertmanager
 
 Example Alert in Alertmanager
 

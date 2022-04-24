@@ -34,5 +34,5 @@ INFO:     Application startup complete.
 
 Next hit
 
-- API: [/api/openapi.json](http://localhost:8000/api/openapi.json) & Swagger-UI at [/docs]](http://localhost:8000/docs)
+- API: [/api/openapi.json](http://localhost:8000/api/openapi.json) & Swagger-UI at [/docs](http://localhost:8000/docs)
 - Metrics: [/health](http://localhost:8000/health) & [/metrics](http://localhost:8000/metrics)

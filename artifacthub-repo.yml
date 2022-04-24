@@ -1,0 +1,5 @@
+# https://github.com/artifacthub/hub/blob/master/docs/metadata/artifacthub-repo.yml
+repositoryID: 0ff66d32-280b-4a3c-b7a1-fa2399549cf6
+owners: # (optional, used to claim repository ownership)
+  - name: mkoertgen
+    email: marcel.koertgen@gmail.com

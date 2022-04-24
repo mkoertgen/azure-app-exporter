@@ -1,14 +1,18 @@
 [![azure-app-exporter](https://github.com/mkoertgen/azure-app-exporter/actions/workflows/azure-app-exporter.yml/badge.svg)](https://github.com/mkoertgen/azure-app-exporter/actions/workflows/azure-app-exporter.yml)
 
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/azure-app-exporter)](https://artifacthub.io/packages/search?repo=azure-app-exporter)
+
 # azure-app-exporter
 
 Exposing Prometheus Metrics for Azure App Registration useful for alerting on expiring Service Principal Credentials.
 
 See [Documentation](_docs/index.md) for more information.
 
+Contribute on the [Project page](https://github.com/users/mkoertgen/projects/1/)
+
 ## Quick Start
 
-Install using Docker of Helm (see `docker-compose.yml` or `./charts`).
+Install using Docker or Helm (see `docker-compose.yml` or `./charts`).
 
 The service authenticates against Azure using [Environmental Credentials](https://docs.microsoft.com/en-us/python/api/azure-identity/azure.identity.environmentcredential?view=azure-python), i.e.
 
@@ -17,10 +21,3 @@ The service authenticates against Azure using [Environmental Credentials](https:
 - AZURE_CLIENT_SECRET: one of the service principal's client secrets
 
 The Service Principal should have at least API permission `Application.Read.All` (Graph & Active Directory)
-
-## TODOs
-
-- Periodically update metrics by scraping `/apps`, e.g. using [Fast API - Repeated Tasks](https://fastapi-utils.davidmontague.xyz/user-guide/repeated-tasks/)
-- Publish helm chart using [Chart Releaser Action](https://helm.sh/docs/howto/chart_releaser_action/)
-  - Add [helm testing](https://github.com/marketplace/actions/helm-chart-testing)
-  - Add [kind deploy](https://github.com/marketplace/actions/kind-cluster)

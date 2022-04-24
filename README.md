@@ -22,3 +22,5 @@ The Service Principal should have at least API permission `Application.Read.All`
 
 - Periodically update metrics by scraping `/apps`, e.g. using [Fast API - Repeated Tasks](https://fastapi-utils.davidmontague.xyz/user-guide/repeated-tasks/)
 - Publish helm chart using [Chart Releaser Action](https://helm.sh/docs/howto/chart_releaser_action/)
+  - Add [helm testing](https://github.com/marketplace/actions/helm-chart-testing)
+  - Add [kind deploy](https://github.com/marketplace/actions/kind-cluster)

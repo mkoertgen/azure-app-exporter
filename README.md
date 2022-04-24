@@ -20,5 +20,5 @@ The Service Principal should have at least API permission `Application.Read.All`
 
 ## TODOs
 
-- Periodically update metrics scrape apps, e.g. using [Fast API - Repeated Tasks](https://fastapi-utils.davidmontague.xyz/user-guide/repeated-tasks/)
+- Periodically update metrics by scraping `/apps`, e.g. using [Fast API - Repeated Tasks](https://fastapi-utils.davidmontague.xyz/user-guide/repeated-tasks/)
 - Publish helm chart

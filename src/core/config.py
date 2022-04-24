@@ -1,20 +1,10 @@
-from typing import Any, Dict, Optional
-
 from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    API_BASE: str = "/api"
-    PROJECT_NAME: str = 'azure-app-exporter'
-
-    @staticmethod
-    def get_project_name(v: Optional[str], values: Dict[str, Any]) -> str:
-        if not v:
-            return values["PROJECT_NAME"]
-        return v
-
-    class Config:
-        case_sensitive = True
+    api_base: str = "/api"
+    project_name: str = 'azure-app-exporter'
+    azure_enabled: bool = False
 
 
 settings = Settings()

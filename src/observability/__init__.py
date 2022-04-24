@@ -25,7 +25,7 @@ def add_logging(app: FastAPI):
 def add_metrics(app: FastAPI):
     app.add_middleware(PrometheusMiddleware,
                        group_paths=True,
-                       app_name=settings.PROJECT_NAME,
+                       app_name=settings.project_name,
                        prefix="http",
                        skip_paths=['/health'])
     app.add_route("/metrics", handle_metrics)

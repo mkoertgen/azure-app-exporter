@@ -1,1 +1,1 @@
-from .sp import AppRegistration
+from .app_registration import AppRegistration

@@ -1,6 +1,8 @@
 replicaCount: 1
 
 azure:
+  # -- Enable connection to Azure
+  enabled: false
   client:
     # -- The AppId of the Service Principal for listing Azure applications
     id: "-unset-"

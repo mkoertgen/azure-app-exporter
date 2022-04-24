@@ -45,6 +45,8 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
+            - name: AZURE_ENABLED
+              value: {{ .Values.azure.enabled | ternary "True" "False" | quote }}
             - name: AZURE_CLIENT_ID
               valueFrom:
                 secretKeyRef:

@@ -7,7 +7,7 @@ from observability import add_observability
 
 
 def create_app() -> FastAPI:
-    the_app = FastAPI(title=settings.PROJECT_NAME, openapi_url=f"{settings.API_BASE}/openapi.json")
+    the_app = FastAPI(title=settings.project_name, openapi_url=f"{settings.api_base}/openapi.json")
     add_observability(the_app)
     add_api(the_app)
     return the_app

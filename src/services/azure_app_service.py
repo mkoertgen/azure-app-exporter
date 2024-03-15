@@ -55,6 +55,7 @@ class AzureAppService(AppService):
     @staticmethod
     def observe(apps: List[AppRegistration]):
         for app in apps:
-            expiry: Optional[datetime] = min(map(lambda c: c.expires, app.credentials))
-            if expiry:
-                APP_EXPIRY.labels(app_id=app.id).set(int(expiry.timestamp()))
+            if len(app.credentials) > 0:
+                expiry: Optional[datetime] = min(map(lambda c: c.expires, app.credentials))
+                if expiry:
+                    APP_EXPIRY.labels(app_id=app.id).set(int(expiry.timestamp()))

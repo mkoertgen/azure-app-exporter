@@ -1,0 +1,12 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows"
+    batch-size: 20
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pip"
+    directory: "/src"
+    batch-size: 20
+    schedule:
+      interval: "weekly"

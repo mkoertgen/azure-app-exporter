@@ -45,7 +45,7 @@ class AzureAppService(AppService):
     def _map_app(dct: Dict) -> AppRegistration:
         app_id = dct['appId']
         name = dct['displayName']
-        creds = [AzureAppService._map_cred(c) for c in dct['passwordCredentials']]
+        creds = [AzureAppService._map_cred(c) for c in dct['passwordCredentials']+dct['keyCredentials']]
         return AppRegistration(id=app_id, name=name, credentials=creds)
 
     @staticmethod

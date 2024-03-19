@@ -13,9 +13,14 @@ from services.app_service import AppService
 APP_EXPIRY = Gauge(
     "azure_app_earliest_expiry",
     "Returns earliest credential expiry in unix time (seconds)",
-    ["app_id"]
+    ["app_id","app_name"]
 )
 
+APP_CREDS_EXPIRY = Gauge(
+    "azure_app_credential_expiry",
+    "Returns the expiration in unix time (seconds) for each credential of an app",
+    ["app_id", "app_name", "credential_name"]
+)
 
 class AzureAppService(AppService):
     def __init__(self, client: GraphClient):
@@ -47,7 +52,7 @@ class AzureAppService(AppService):
     def _map_cred(dct: Dict) -> Credential:
         # https://stackoverflow.com/a/71778150/2592915
         return Credential(
-            name=dct['customKeyIdentifier'],
+            name=dct['displayName'],
             created=dateutil.parser.isoparse(dct['startDateTime']),
             expires=dateutil.parser.isoparse(dct['endDateTime'])
         )
@@ -58,4 +63,6 @@ class AzureAppService(AppService):
             if len(app.credentials) > 0:
                 expiry: Optional[datetime] = min(map(lambda c: c.expires, app.credentials))
                 if expiry:
-                    APP_EXPIRY.labels(app_id=app.id).set(int(expiry.timestamp()))
+                    APP_EXPIRY.labels(app_id=app.id, app_name=app.name).set(int(expiry.timestamp()))
+                for cred in app.credentials:
+                    APP_CREDS_EXPIRY.labels(app_id=app.id, app_name=app.name, credential_name=cred.name).set(int(cred.expires.timestamp())) 

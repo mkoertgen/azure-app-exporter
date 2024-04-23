@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "azure-app-exporter.fullname" . }}-refresh-apis
+  labels:
+    {{- include "azure-app-exporter.labels" . | nindent 4 }}
+spec:
+  schedule: "0 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 14 }}
+          containers:
+            - name: refresh-apis
+              image: busybox:latest
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 18 }}
+              command:
+                - /bin/sh
+                - -c
+                - wget -O - "http://{{ include "azure-app-exporter.fullname" . }}:{{ .Values.service.port }}/api/apps"
+          restartPolicy: OnFailure

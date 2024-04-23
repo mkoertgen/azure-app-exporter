@@ -5,9 +5,7 @@ metadata:
   labels:
     {{- include "azure-app-exporter.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "azure-app-exporter.selectorLabels" . | nindent 6 }}
@@ -24,7 +22,6 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "azure-app-exporter.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -33,7 +30,21 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-
+          args:
+            - uvicorn
+            - --host
+            - 0.0.0.0
+            - --port
+            - "8000"
+            - --workers
+            - "1"
+            - main:app
+            - --log-level
+            - debug
+          ports:
+            - name: http
+              containerPort: 8000
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /health
@@ -62,6 +73,8 @@ spec:
                 secretKeyRef:
                   name: {{ template "azure-app-exporter.secretName" . }}
                   key: azure-tenant-id
+            - name: LOG_LEVEL
+              value: "DEBUG"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

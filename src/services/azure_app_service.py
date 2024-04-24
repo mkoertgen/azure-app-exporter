@@ -13,7 +13,7 @@ from services.app_service import AppService
 APP_EXPIRY = Gauge(
     "azure_app_earliest_expiry",
     "Returns earliest credential expiry in unix time (seconds)",
-    ["app_id"]
+    ["app_id", "app_name"]
 )
 
 
@@ -58,4 +58,4 @@ class AzureAppService(AppService):
             if len(app.credentials) > 0:
                 expiry: Optional[datetime] = min(map(lambda c: c.expires, app.credentials))
                 if expiry:
-                    APP_EXPIRY.labels(app_id=app.id).set(int(expiry.timestamp()))
+                    APP_EXPIRY.labels(app_id=app.id, app_name=app.name).set(int(expiry.timestamp()))

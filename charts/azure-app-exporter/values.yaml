@@ -11,6 +11,9 @@ azure:
   # -- Your Azure Tenant Id
   tenant: "-unset-"
 
+# -- the schedule at which the Azure apps are refreshed
+appRefreshSchedule: "0 * * * *"
+
 image:
   # -- The container image repository to use
   repository: ghcr.io/mkoertgen/azure-app-exporter/azure-app-exporter

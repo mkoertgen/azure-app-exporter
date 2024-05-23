@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
-from msgraph import GraphServiceClient
+from msgraph.graph_service_client import GraphServiceClient
 from msgraph.generated.models.application import Application
 from msgraph.generated.models.key_credential import KeyCredential
 from msgraph.generated.models.password_credential import PasswordCredential

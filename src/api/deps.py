@@ -1,5 +1,5 @@
 from azure.identity import EnvironmentCredential
-from msgraph import GraphServiceClient
+from msgraph.graph_service_client import GraphServiceClient
 
 from core.config import settings
 from services.app_service import AppService
@@ -13,4 +13,6 @@ def get_app_service() -> AppService:
 
 def get_client() -> GraphServiceClient:
     creds = EnvironmentCredential()
+    # GraphServiceClient works with EnvironmentCredential just as well
+    # noinspection PyTypeChecker
     return GraphServiceClient(credentials=creds)

@@ -1,14 +1,13 @@
 from datetime import datetime
 from typing import List, Dict, Optional
 
+from msgraph.core import GraphClient
+
 import dateutil.parser
 from fastapi import HTTPException
-from msgraph.core import GraphClient
-from prometheus_client import Gauge
-from prometheus_client import REGISTRY
-
 from models import AppRegistration
 from models.app_registration import Credential
+from prometheus_client import Gauge
 from services.app_service import AppService
 
 APP_EXPIRY = Gauge(

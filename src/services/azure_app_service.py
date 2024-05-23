@@ -1,9 +1,10 @@
 from datetime import datetime
-from typing import List, Dict, Optional
+from typing import List, Optional
 
-import dateutil.parser
-from fastapi import HTTPException
-from msgraph.core import GraphClient
+from msgraph import GraphServiceClient
+from msgraph.generated.models.application import Application
+from msgraph.generated.models.key_credential import KeyCredential
+from msgraph.generated.models.password_credential import PasswordCredential
 from prometheus_client import Gauge
 
 from models import AppRegistration
@@ -13,7 +14,7 @@ from services.app_service import AppService
 APP_EXPIRY = Gauge(
     "azure_app_earliest_expiry",
     "Returns earliest credential expiry in unix time (seconds)",
-    ["app_id","app_name"]
+    ["app_id", "app_name"]
 )
 
 APP_CREDS_EXPIRY = Gauge(
@@ -22,39 +23,43 @@ APP_CREDS_EXPIRY = Gauge(
     ["app_id", "app_name", "credential_name"]
 )
 
+
 class AzureAppService(AppService):
-    def __init__(self, client: GraphClient):
+    def __init__(self, client: GraphServiceClient):
         self.client = client
 
-    def get_all(self) -> List[AppRegistration]:
-        result = self.client.get("/applications")
-        if not result.ok:
-            raise HTTPException(status_code=result.status_code)
-        value = result.json()['value']
-        apps = [AzureAppService._map_app(a) for a in value]
+    async def get_all(self) -> List[AppRegistration]:
+        result = await self.client.applications.get()
+        apps = []
+        while result is not None:
+            apps += [AzureAppService._map_app(a) for a in result.value]
+            if result.odata_next_link is None:
+                break
+            result = await self.client.applications.with_url(result.odata_next_link).get()
+
         self.observe(apps)
         return apps
 
-    def get_by(self, app_id: str) -> AppRegistration:
-        result = self.client.get(f"/applications?$filter=appId eq '{app_id}'")
-        if not result.ok:
-            raise HTTPException(status_code=result.status_code)
-        return AzureAppService._map_app(result.json()['value'][0])
+    async def get_by(self, app_id: str) -> AppRegistration:
+        result = await self.client.applications.by_application_id(app_id).get()
+        if result is not None:
+            return AzureAppService._map_app(result)
+        else:
+            raise "Application with app id %s not found." % app_id
 
     @staticmethod
-    def _map_app(dct: Dict) -> AppRegistration:
-        app_id = dct['appId']
-        name = dct['displayName']
-        creds = [AzureAppService._map_cred(c) for c in dct['passwordCredentials']+dct['keyCredentials']]
+    def _map_app(app: Application) -> AppRegistration:
+        app_id = app.app_id
+        name = app.display_name
+        creds = [AzureAppService._map_cred(c) for c in app.password_credentials + app.key_credentials]
         return AppRegistration(id=app_id, name=name, credentials=creds)
 
     @staticmethod
-    def _map_cred(dct: Dict) -> Credential:
-        # https://stackoverflow.com/a/71778150/2592915
+    def _map_cred(cred: KeyCredential | PasswordCredential) -> Credential:
         return Credential(
-            name=dct['displayName'],
-            created=dateutil.parser.isoparse(dct['startDateTime']),
-            expires=dateutil.parser.isoparse(dct['endDateTime'])
+            name=cred.display_name,
+            created=cred.start_date_time,
+            expires=cred.end_date_time
         )
 
     @staticmethod
@@ -65,4 +70,4 @@ class AzureAppService(AppService):
                 if expiry:
                     APP_EXPIRY.labels(app_id=app.id, app_name=app.name).set(int(expiry.timestamp()))
                 for cred in app.credentials:
-                    APP_CREDS_EXPIRY.labels(app_id=app.id, app_name=app.name, credential_name=cred.name).set(int(cred.expires.timestamp())) 
+                    APP_CREDS_EXPIRY.labels(app_id=app.id, app_name=app.name, credential_name=cred.name).set(int(cred.expires.timestamp()))

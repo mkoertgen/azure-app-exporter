@@ -1,5 +1,5 @@
 from azure.identity import EnvironmentCredential
-from msgraph.core import GraphClient
+from msgraph import GraphServiceClient
 
 from core.config import settings
 from services.app_service import AppService
@@ -11,6 +11,6 @@ def get_app_service() -> AppService:
     return AzureAppService(get_client()) if settings.azure_enabled else MockAppService()
 
 
-def get_client() -> GraphClient:
+def get_client() -> GraphServiceClient:
     creds = EnvironmentCredential()
-    return GraphClient(credential=creds)
+    return GraphServiceClient(credentials=creds)

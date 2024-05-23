@@ -14,8 +14,8 @@ class MockAppService(AppService):
         else:
             self.apps[MockAppService.SOME_APP.id] = MockAppService.SOME_APP
 
-    def get_all(self) -> List[AppRegistration]:
+    async def get_all(self) -> List[AppRegistration]:
         return list(self.apps.values())
 
-    def get_by(self, app_id: str) -> AppRegistration:
+    async def get_by(self, app_id: str) -> AppRegistration:
         return self.apps[app_id]

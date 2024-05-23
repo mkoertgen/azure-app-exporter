@@ -16,9 +16,9 @@ class AppsController:
     service: MockAppService = Depends(deps.get_app_service)
 
     @router.get("/")
-    def get_all(self) -> List[AppRegistration]:
-        return self.service.get_all()
+    async def get_all(self) -> List[AppRegistration]:
+        return await self.service.get_all()
 
     @router.get("/{app_id}")
-    def get_by(self, app_id: str) -> AppRegistration:
-        return self.service.get_by(app_id)
+    async def get_by(self, app_id: str) -> AppRegistration:
+        return await self.service.get_by(app_id)

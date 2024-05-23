@@ -1,13 +1,13 @@
 from datetime import datetime
 from typing import List, Dict, Optional
 
+from msgraph.core import GraphClient
+
 import dateutil.parser
 from fastapi import HTTPException
-from msgraph.core import GraphClient
-from prometheus_client import Gauge
-
 from models import AppRegistration
 from models.app_registration import Credential
+from prometheus_client import Gauge
 from services.app_service import AppService
 
 APP_EXPIRY = Gauge(
@@ -59,10 +59,13 @@ class AzureAppService(AppService):
 
     @staticmethod
     def observe(apps: List[AppRegistration]):
+        APP_EXPIRY.clear()
+        APP_CREDS_EXPIRY.clear()
         for app in apps:
             if len(app.credentials) > 0:
                 expiry: Optional[datetime] = min(map(lambda c: c.expires, app.credentials))
                 if expiry:
                     APP_EXPIRY.labels(app_id=app.id, app_name=app.name).set(int(expiry.timestamp()))
                 for cred in app.credentials:
-                    APP_CREDS_EXPIRY.labels(app_id=app.id, app_name=app.name, credential_name=cred.name).set(int(cred.expires.timestamp())) 
+                    APP_CREDS_EXPIRY.labels(app_id=app.id, app_name=app.name, credential_name=cred.name).set(
+                        int(cred.expires.timestamp()))

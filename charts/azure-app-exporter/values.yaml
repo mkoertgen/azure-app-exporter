@@ -29,7 +29,7 @@ metrics:
 
 image:
   # -- The container image repository to use
-  repository: ghcr.io/mkoertgen/azure-app-exporter/azure-app-exporter
+  repository: ghcr.io/dodevops/azure-app-exporter/azure-app-exporter
   pullPolicy: IfNotPresent
   # -- Overrides the image tag whose default is the chart appVersion.
   tag: ""

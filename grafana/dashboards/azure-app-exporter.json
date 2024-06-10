@@ -39,7 +39,7 @@
       "title": "GitHub",
       "tooltip": "GitHub",
       "type": "link",
-      "url": "https://github.com/mkoertgen/azure-app-exporter"
+      "url": "https://github.com/dodevops/azure-app-exporter"
     }
   ],
   "liveNow": false,

@@ -1,4 +1,4 @@
-[![azure-app-exporter](https://github.com/mkoertgen/azure-app-exporter/actions/workflows/azure-app-exporter.yml/badge.svg)](https://github.com/mkoertgen/azure-app-exporter/actions/workflows/azure-app-exporter.yml)
+[![azure-app-exporter](https://github.com/dodevops/azure-app-exporter/actions/workflows/azure-app-exporter.yml/badge.svg)](https://github.com/dodevops/azure-app-exporter/actions/workflows/azure-app-exporter.yml)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/azure-app-exporter)](https://artifacthub.io/packages/search?repo=azure-app-exporter)
 
 # azure-app-exporter
@@ -9,7 +9,7 @@ Exposing Prometheus Metrics for Azure App Registration useful for alerting on ex
 
 See [Documentation](_docs/index.md) for more information.
 
-Contribute on the [Project page](https://github.com/users/mkoertgen/projects/1/)
+Contribute on the [Project page](https://github.com/users/dodevops/projects/1/)
 
 ## Quick Start
 

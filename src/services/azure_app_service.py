@@ -1,11 +1,12 @@
 from datetime import datetime
 from typing import List, Optional
 
-from msgraph import GraphServiceClient
+from msgraph.graph_service_client import GraphServiceClient
 from msgraph.generated.models.application import Application
 from msgraph.generated.models.key_credential import KeyCredential
 from msgraph.generated.models.password_credential import PasswordCredential
 from prometheus_client import Gauge
+from prometheus_client import REGISTRY
 
 from models import AppRegistration
 from models.app_registration import Credential
@@ -64,6 +65,8 @@ class AzureAppService(AppService):
 
     @staticmethod
     def observe(apps: List[AppRegistration]):
+        APP_EXPIRY.clear()
+        APP_CREDS_EXPIRY.clear()
         for app in apps:
             if len(app.credentials) > 0:
                 expiry: Optional[datetime] = min(map(lambda c: c.expires, app.credentials))

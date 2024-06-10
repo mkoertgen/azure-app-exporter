@@ -2,16 +2,19 @@ apiVersion: v2
 name: azure-app-exporter
 description: Exposing Prometheus Metrics for Azure Service Principals
 type: application
-version: 0.1.0
-appVersion: "0.1.19"
+version: 0.2.0
+appVersion: "0.1.35"
 keywords:
   - azure
   - prometheus
-home: https://github.com/mkoertgen/azure-app-exporter
+home: https://github.com/dodevops/azure-app-exporter
 sources:
-  - https://github.com/mkoertgen/azure-app-exporter
-icon: https://raw.githubusercontent.com/mkoertgen/azure-app-exporter/main/logo.png
+  - https://github.com/dodevops/azure-app-exporter
+icon: https://raw.githubusercontent.com/dodevops/azure-app-exporter/main/logo.png
 maintainers:
   - name: Marcel Körtgen
     email: marcel.koertgen@gmail.com
     url: https://github.com/mkoertgen
+  - name: DO! DevOps
+    email: info@dodevops.io
+    url: https://github.com/dodevops

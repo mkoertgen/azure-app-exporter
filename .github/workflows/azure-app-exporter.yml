@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    uses: mkoertgen/azure-app-exporter/.github/workflows/_build.yml@main
+    uses: dodevops/azure-app-exporter/.github/workflows/_build.yml@main
     with:
       component: azure-app-exporter
     secrets:

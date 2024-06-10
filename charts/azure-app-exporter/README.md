@@ -4,17 +4,18 @@
 
 Exposing Prometheus Metrics for Azure Service Principals
 
-**Homepage:** <https://github.com/mkoertgen/azure-app-exporter>
+**Homepage:** <https://github.com/dodevops/azure-app-exporter>
 
 ## Maintainers
 
-| Name | Email | Url |
-| ---- | ------ | --- |
+| Name           | Email                       | Url                            |
+|----------------|-----------------------------|--------------------------------|
 | Marcel Körtgen | <marcel.koertgen@gmail.com> | <https://github.com/mkoertgen> |
+| DO! DevOps     | <info@dodevops.io>          | <https://github.com/dodevops>  |
 
 ## Source Code
 
-* <https://github.com/mkoertgen/azure-app-exporter>
+* <https://github.com/dodevops/azure-app-exporter>
 
 ## Values
 

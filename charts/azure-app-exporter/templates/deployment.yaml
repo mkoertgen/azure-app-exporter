@@ -62,6 +62,10 @@ spec:
                 secretKeyRef:
                   name: {{ template "azure-app-exporter.secretName" . }}
                   key: azure-tenant-id
+            {{- if .Values.azure.tagsFilter }}
+            - name: FILTER_TAGS
+              value: {{ .Values.azure.tagsFilter | join "," | quote }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

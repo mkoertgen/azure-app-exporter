@@ -10,6 +10,8 @@ azure:
     secret: "-unset-"
   # -- Your Azure Tenant Id
   tenant: "-unset-"
+  # -- a list of tags. Only the apps having one of the tags are returned
+  tagsFilter: []
 
 metrics:
   # -- Enable Prometheus metrics

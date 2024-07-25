@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from typing import List, Optional
 
@@ -33,7 +34,16 @@ class AzureAppService(AppService):
         result = await self.client.applications.get()
         apps = []
         while result is not None:
-            apps += [await self._map_app(a) for a in result.value]
+            for app in result.value:
+                found = True
+                if "FILTER_TAGS" in os.environ:
+                    found = False
+                    for tag in os.environ.get('FILTER_TAGS').split(','):
+                        if tag in app.tags:
+                            found = True
+                            break
+                if found:
+                    apps += [await self._map_app(app)]
             if result.odata_next_link is None:
                 break
             result = await self.client.applications.with_url(result.odata_next_link).get()

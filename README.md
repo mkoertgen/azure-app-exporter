@@ -22,3 +22,11 @@ The service authenticates against Azure using [Environmental Credentials](https:
 - AZURE_CLIENT_SECRET: one of the service principal's client secrets
 
 The Service Principal should have at least API permission `Application.Read.All` (Graph & Active Directory)
+
+## Filtering for tags
+
+While it is not officially possible to tag app registrations, you can still open the manifest json in the
+Azure portal, manually change the "tags" property and save it.
+
+Use the FILTER_TAGS environment variable with a comma separated list of tags to only retrive the app
+registrations that have one of the given tags attached.

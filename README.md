@@ -1,3 +1,5 @@
+**NOTE: Public Archive. This project has been adopted by & transferred to [dodevops/azure-app-exporter](https://github.com/dodevops/azure-app-exporter)**
+
 [![azure-app-exporter](https://github.com/mkoertgen/azure-app-exporter/actions/workflows/azure-app-exporter.yml/badge.svg)](https://github.com/mkoertgen/azure-app-exporter/actions/workflows/azure-app-exporter.yml)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/azure-app-exporter)](https://artifacthub.io/packages/search?repo=azure-app-exporter)
 
